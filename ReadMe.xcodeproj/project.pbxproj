@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FF62239526361096005AC953 /* PHPickerViewController.View.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62239426361096005AC953 /* PHPickerViewController.View.swift */; };
+		FF82164F263F43EE0023FA1D /* NewBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF82164E263F43EE0023FA1D /* NewBookView.swift */; };
+		FF821651263F47260023FA1D /* ReviewAndImageStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF821650263F47260023FA1D /* ReviewAndImageStack.swift */; };
 		FFC1063826353490005F8538 /* ReadMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC1063726353490005F8538 /* ReadMeApp.swift */; };
 		FFC1063A26353490005F8538 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC1063926353490005F8538 /* ContentView.swift */; };
 		FFC1063C26353491005F8538 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFC1063B26353491005F8538 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		FF62239426361096005AC953 /* PHPickerViewController.View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHPickerViewController.View.swift; sourceTree = "<group>"; };
+		FF82164E263F43EE0023FA1D /* NewBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookView.swift; sourceTree = "<group>"; };
+		FF821650263F47260023FA1D /* ReviewAndImageStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAndImageStack.swift; sourceTree = "<group>"; };
 		FFC1063426353490005F8538 /* ReadMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC1063726353490005F8538 /* ReadMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMeApp.swift; sourceTree = "<group>"; };
 		FFC1063926353490005F8538 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,8 +90,10 @@
 			children = (
 				FFC1063926353490005F8538 /* ContentView.swift */,
 				FFC1064E2635C9D0005F8538 /* BookViews.swift */,
+				FF82164E263F43EE0023FA1D /* NewBookView.swift */,
 				FFC106562635D1F3005F8538 /* DetailView.swift */,
 				FF62239426361096005AC953 /* PHPickerViewController.View.swift */,
+				FF821650263F47260023FA1D /* ReviewAndImageStack.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,8 +171,10 @@
 				FFC106572635D1F3005F8538 /* DetailView.swift in Sources */,
 				FFC1063826353490005F8538 /* ReadMeApp.swift in Sources */,
 				FFC106542635D121005F8538 /* Library.swift in Sources */,
+				FF82164F263F43EE0023FA1D /* NewBookView.swift in Sources */,
 				FF62239526361096005AC953 /* PHPickerViewController.View.swift in Sources */,
 				FFC1064A2635C93C005F8538 /* Book.swift in Sources */,
+				FF821651263F47260023FA1D /* ReviewAndImageStack.swift in Sources */,
 				FFC1064F2635C9D0005F8538 /* BookViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

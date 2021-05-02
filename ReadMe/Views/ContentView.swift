@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var library: Library = Library()
+    @State var addingNewBook = false
+    @EnvironmentObject var library:Library
     
     var body: some View {
         NavigationView{
             List{
                 Button{
-                    
+                    addingNewBook =  true
                 }label: {
                     Spacer()
                     VStack(spacing:6) {
@@ -27,9 +28,30 @@ struct ContentView: View {
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(.vertical)
-                ForEach(library.sortedBooks) { book in
-                    BookRow(book: book, image: $library.uiImages[book])
+                .sheet(isPresented: $addingNewBook, content:
+                    NewBookView.init
+                )
+                switch library.sortStyle {
+                case .title, .author:
+                    BookRows(data: library.sortedBooks, section: nil)
+                case .manual:
+                    ForEach(Section.allCases, id: \.self){
+                        SectionView(section: $0)
+                    }
                 }
+            }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading){
+                    Menu("Sort"){
+                        Picker("Sort Style", selection: $library.sortStyle) {
+                            ForEach(SortStyle.allCases, id: \.self){
+                                sortStyle in
+                                Text("\(sortStyle)".capitalized)
+                            }
+                        }
+                    }
+                }
+                ToolbarItem(content: EditButton.init)
             }
             .navigationTitle("My Library")
         }
@@ -37,15 +59,31 @@ struct ContentView: View {
     }
 }
 
-struct BookRow: View {
+
+private struct BookRows: DynamicViewContent {
+    let data: [Book]
+    let section: Section?
+    @EnvironmentObject var library: Library
+    
+    var body: some View {
+        ForEach(data){
+            BookRow(book: $0)
+        }
+        .onDelete { indexSet in
+            library.deleteBooks(atOffsets: indexSet, section: section)
+        }
+    }
+}
+
+private struct BookRow: View {
     @ObservedObject var book: Book
-    @Binding var image: UIImage?
+    @EnvironmentObject var library: Library
     
     var body: some View {
         NavigationLink(
-            destination: DetailView(book: book, image: $image)){
+            destination: DetailView(book: book)){
         HStack {
-            Book.Image(uiImage: image, title: book.title, size: 80,cornerRadious: 12)
+            Book.Image(uiImage: library.uiImages[book], title: book.title, size: 80,cornerRadious: 12)
             VStack(alignment: .leading) {
                 TitleAndAuthorStack(book: book, titleFont: .title2, authorFont: .title3)
                 if !book.microReview.isEmpty {
@@ -65,9 +103,42 @@ struct BookRow: View {
     }
 }
 
+
+private struct SectionView: View{
+    let section: Section
+    @EnvironmentObject var library: Library
+    var title: String {
+        switch section {
+        
+        case .readMe:
+            return "Read Me!"
+        case .finished:
+            return "Finished!"
+        }
+    }
+    var body: some View {
+        if let books = library.manuallySortedBooks[section]{
+            SwiftUI.Section(header: ZStack {
+                Image("BookTexture").resizable()
+                                    .scaledToFit()
+                Text(title)
+                    .font(.custom("American Typewriter", size: 24))
+            }
+            .listRowInsets(.init())
+            ){
+                BookRows(data: books, section: section)
+                    .onMove(perform: { indices, newOffset in
+                        library.moveBooks(oldOffsets: indices, newOffset: newOffset, section: section)
+                    })
+            }
+        }
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(Library())
             .previewedInAllColorSchemes
     }
 }
